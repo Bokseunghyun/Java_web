@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BoardAttachMapper">
+
+	<!-- 첨부파일 삽입 -->
+	<insert id="insert">
+		insert into spring_attach values(#{uuid},#{uploadPath},#{fileName},#{fileType},#{bno})
+	</insert>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="delete">
+		delete from spring_attach where uuid=#{uuid}
+	</delete>
+
+	<!-- 첨부파일 목록 가져오기 -->
+	<select id="findByBno" resultType="com.spring.domain.BoardAttachVO">
+		select * from spring_attach where bno=#{bno}
+	</select>
+
+
+
+</mapper>
+
+	
