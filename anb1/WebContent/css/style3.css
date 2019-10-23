@@ -1,0 +1,136 @@
+body {
+  height: 100vh;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+
+svg {
+  overflow: visible;
+}
+
+.sun-container, .moon-container {
+  height: 100%;
+
+}
+
+.sun-container {
+  background: linear-gradient(to right, #50c9c3, #96deda);
+  border-right: 1px solid gray;
+}
+
+.moon-container {
+  background-image: radial-gradient(circle at center, #E783B8 0%, #190425 10%);
+  animation: opac 2s 10s linear infinite reverse;
+}
+
+.sun rect {
+  stroke-width: 1px;
+  stroke: black;
+  transform-origin: center center;
+  stroke-dasharray: 1000;
+  animation: dash 5s linear infinite forwards, rotateR 12s 3s infinite linear;
+}
+.sun rect:nth-of-type(2) {
+  transform: rotate(60deg);
+  animation: dash 5s linear infinite forwards, rotateR60 12s 3s infinite linear;
+}
+.sun rect:nth-of-type(3) {
+  transform: rotate(-60deg);
+  animation: dash 5s linear infinite forwards, rotateR60reverse 12s 3s infinite linear;
+}
+.sun .group-1 {
+  fill: #96deda;
+  animation: changeFillGroup1 5s 0.5s infinite linear forwards;
+}
+.sun .group-2 {
+  fill: #96deda;
+  animation: changeFillGroup2 5s linear infinite forwards;
+}
+
+.moon circle {
+  stroke-width: 1px;
+  stroke: white;
+  transform-origin: center center;
+  stroke-dasharray: 1000;
+  fill: #190425;
+  animation: dash 5s 5s linear forwards, rotateL 12s 8s infinite linear, changeFillMoon 5s 5.5s linear forwards;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke: white;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes changeFillGroup1 {
+  to {
+    fill: rgba(255, 90, 0, 0.5);
+  }
+}
+@keyframes changeFillGroup2 {
+  to {
+    fill: rgba(255, 230, 84, 0.5);
+  }
+}
+@keyframes changeFillMoon {
+  to {
+    fill: #eee;
+    stroke: gray;
+  }
+}
+@keyframes rotateR {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotateR60 {
+  from {
+    transform: rotate(60deg);
+  }
+  to {
+    transform: rotate(420deg);
+  }
+}
+@keyframes rotateR60reverse {
+  from {
+    transform: rotate(-60deg);
+  }
+  to {
+    transform: rotate(300deg);
+  }
+}
+@keyframes rotateL {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+@keyframes opac {
+  0% {
+    background-image: radial-gradient(circle at center, #E783B8 0%, #190425 36%);
+  }
+  25% {
+    background-image: radial-gradient(circle at center, #E783B8 0%, #190425 26%);
+  }
+  50% {
+    background-image: radial-gradient(circle at center, #E783B8 0%, #190425 24%);
+  }
+  75% {
+    background-image: radial-gradient(circle at center, #E783B8 0%, #190425 22%);
+  }
+  100% {
+    background-image: radial-gradient(circle at center, #E783B8 0%, #190425 20%);
+  }
+}

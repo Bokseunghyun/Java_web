@@ -1,0 +1,58 @@
+ body, ul {
+
+margin: 0;
+
+padding: 0;
+
+}
+
+li {
+
+list-style-type: none;
+
+}
+
+a {
+
+text-decoration: none;
+
+color: inherit;
+
+}
+
+/* Design Area *
+
+.vertical-menu {
+
+width: 200px;
+
+margin: 0 auto;blcok 
+
+}
+
+.vertical-menu a {
+
+display: block;
+
+height: 50px;
+
+line-height: 50px;
+
+background-color: #d63f22;
+
+color: #ccc;
+
+padding: 0 20px;
+
+border-bottom: 1px solid #bf391f;
+
+}
+
+.vertical-menu a:hover {
+
+background-color: #bf391f;
+
+color: #fff;
+
+}
+  

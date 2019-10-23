@@ -1,0 +1,9 @@
+CREATE TABLE `january` (
+  `item` varchar(50) DEFAULT NULL,
+  `date` varchar(45) DEFAULT NULL,
+  `price` varchar(45) DEFAULT NULL,
+  `shop` varchar(45) DEFAULT NULL,
+  `made` varchar(45) DEFAULT NULL,
+  `sal1` varchar(45) DEFAULT NULL,
+  `sal2` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
