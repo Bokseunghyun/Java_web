@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<context:component-scan base-package="com.spring.aop"></context:component-scan>
+
+	<!-- aop proxy -->
+	<aop:config>
+		<aop:aspect ref="log">
+	
+		<!-- 어느 메소드에 대행자(proxy)가 작동할 것인지 설정 -->
+		<aop:pointcut expression="execution(* com.spring.aop.Product.getInfo())" id="pointcut"/>
+		
+		<!-- 어떤 기능을 적용할 것인지 / 어느 시점에 작동할 것인지 를 설정 -->
+		<!-- <aop:before method="beforeLog" pointcut-ref="pointcut"/>
+		
+		<aop:after method="afterLog" pointcut-ref="pointcut"/>
+		
+		 -->
+		 
+		 <!-- 예외발생 시점에 작동 -->
+		<aop:after-throwing method="afterThrowingLog" pointcut-ref="pointcut"/>
+			
+		 <!-- 정상 종료 시점에 작동 -->
+		 <aop:after-returning method="afterReturnLog" pointcut-ref="pointcut"/>
+		
+		<aop:around method="aroundLog" pointcut-ref="pointcut"/>
+		</aop:aspect>
+		
+	</aop:config>
+	
+</beans>

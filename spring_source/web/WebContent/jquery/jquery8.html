@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 id="header1">Header1</h1>
+	<h1 id="header2">Header2</h1>
+	<button type="button">클릭</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		//button클릭시 id가 header1인 내용 변경
+		$("button").click(function(){
+			console.log($("#header1").text());
+			$("#header1").text("<li>내용을 변경합니다.</li>");
+			//javascript => textContent(). innerHTML
+			$("#header2").html("<li>내용 변경2</li>");
+		});		
+	})
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

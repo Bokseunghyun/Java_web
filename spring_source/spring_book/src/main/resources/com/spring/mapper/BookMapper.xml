@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BookMapper">
+	<insert id="book_insert">
+		insert into book values(#{code},#{title},#{writer},#{price})
+	</insert>
+	
+	<select id="getlist" resultType = "com.spring.domain.bookVO"> 
+		select * from book
+	
+	</select>
+	
+	<delete id="book_delete">
+		delete from book where code=#{code}	
+	</delete>
+	<update id = "book_update">
+		update book set price=#{price} where code=#{code}
+	</update>
+	
+	<select id="book_search" resultType="com.spring.domain.bookVO">
+		select *
+		from book
+		where
+		<if test="criteria=='code'.toString()">
+			code=#{keyword}
+		</if>
+		<if test="criteria=='writer'.toString()">
+			writer like '%'||#{keyword}||'%'
+		</if>
+	</select>
+</mapper>

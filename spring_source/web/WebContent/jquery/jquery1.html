@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<h2>클릭하면 사라집니다.</h2>
+<p class="para1">이것은 문단입니다.</p>
+<p id="para2">이것은 두번째 문단입니다.</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("h2").click(function(){
+				$(this).hide();
+			});
+			
+			$(".para1").click(function(){
+				$(this).css("color","#669900");
+			});
+			$("#para2").click(function(){
+				$(this).css("font-weight","bold");
+
+			});
+		})
+	
+	
+	</script>
+		
+		
+		
+</body>
+</html>

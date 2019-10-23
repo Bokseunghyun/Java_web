@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- HikariCP 커넥션 풀 설정 -->
+	<bean id="hikariConfig" 
+			class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" 
+						value="oracle.jdbc.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<property name="username" value="javaDB"/>
+		<property name="password" value="12345"/>
+	</bean>
+	
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource" 
+					destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	
+	<!-- MyBatis SqlSessionFactory 객체 생성 -->
+	<bean id="sqlSessionFactory" 
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>	
+	</bean>
+	<!-- BoardMapper를 스캔(자동 매퍼 검색) -->
+	<mybatis-spring:scan base-package="com.spring.mapper"/>
+	
+	
+	<!-- 컨트롤러 없이 view와 매핑시켜주는 코드 -->
+	<mvc:view-controller path="/" view-name="index"/>
+	
+	<!-- 트랜잭션 처리 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<aop:aspectj-autoproxy/>
+	<context:component-scan base-package="com.spring.service"/>
+</beans>

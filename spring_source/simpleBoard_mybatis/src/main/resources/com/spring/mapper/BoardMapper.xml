@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BoardMapper">
+	
+	<insert id="insertBoard">
+		insert into spring_board(bno,title,content,writer)
+		values(seq_board.nextVal,#{title},#{content},#{writer})
+	</insert>
+	
+	<update id="updateBoard">
+		update spring_board set title=#{title}, content=#{content},
+		updatedate=sysdate where bno=#{bno}
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from spring_board where bno=#{bno}
+	</delete>
+	
+	<select id="selectAll" resultType="com.spring.domain.BoardVO">
+		select * from spring_board order by bno desc
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="com.spring.domain.BoardVO">
+		select * from spring_board where bno=#{bno}
+	</select>
+</mapper>

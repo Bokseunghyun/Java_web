@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script>
+	function checkform(){
+		//이름이 비어있지 않고, 2~4자리까지만 허용
+		//범위를 넘어가면 경고창 띄우기
+		
+		event.preventDefault();
+		var name = document.getElementById("name");
+		var age = document.getElementById("age");
+		
+		if(name.value.length<2||name.value.length>4){
+			alert("이름은 2~4자리 사이로 입력되어야 합니다.")
+			name.focus();
+			return false;
+		}
+		//나이가 비어있지 않고, 0~120까지만 허용
+		//경고창 띄우기
+		if(!Number(age)||Number(age)<0||Number(age)>120){
+			alert("나이는 0~120사이로 입력되어야 합니다.");
+			age.focus();
+			return false;
+		}
+		
+		
+		
+	}
+
+</script>
+
+
+</head>
+<body>
+
+	<form action="">
+		<div>
+			<label for="name">이름</label>
+			<input type="text" name="name" id="name" />
+		</div>
+		<div>
+			<label for="age">나이</label>
+			<input type="number" name="age" id="age" />
+		</div>
+		
+		<div>
+			<input type="submit" value="보내기" onclick="checkform()"/>
+		</div>
+	</form>
+
+
+</body>
+</html>

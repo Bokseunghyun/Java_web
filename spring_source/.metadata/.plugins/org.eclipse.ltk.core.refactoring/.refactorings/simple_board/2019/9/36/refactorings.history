@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;JDBCUtill.java&apos; to &apos;dbcp_member/src/member.persistence&apos;&#x0D;&#x0A;- Original project: &apos;simple_board&apos;&#x0D;&#x0A;- Destination element: &apos;dbcp_member/src/member.persistence&apos;&#x0D;&#x0A;- Original element: &apos;com.spring.persistence.JDBCUtill.java&apos;" description="Copy compilation unit" destination="=dbcp_member/src&lt;member.persistence" element1="/src\/main\/java&lt;com.spring.persistence{JDBCUtill.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1567563501536" units="1" version="1.0"/>
+</session>

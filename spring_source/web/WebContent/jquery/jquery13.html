@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body>
+	<form action="" id = "myform">
+		<div>
+			<label for="username">이름</label>
+			<<input type="text" name="username" id="username"/>
+		</div>
+		<div>
+			<label for="usertel">전화번호</label>
+			<<input type="text" name="usertel" id="usertel"/>
+		</div>
+	<div>
+			<label for="userpw">비밀번호</label>
+			<<input type="text" name="userpw" id="userpw"/>
+		</div>
+		<button id="view">내용읽기</button>
+		<button id="modify">내용수정</button>
+		<button id="delete">내용삭제</button>
+	</form>
+
+	<script>
+		$(function(){
+			//각 버튼에 따라 action 변경
+			//내용읽기 -> jquery10.html
+			//내용수정 -> jquery11.html
+			//내용삭제 -> jquery12.html
+			
+			$('#view').click(function(){
+				$("#myform").attr("action","jquery10.html");
+				$("#userpw").remove();
+			})
+			$('#modify').click(function(){
+				$("#myform").attr("action","jquery11.html");
+			})
+			$('#delete').click(function(){
+				$("#myform").empty();
+				$("#myform").attr("action","jquery12.html");
+				$("#myform").append('<input type="text" name="userage" id="userage" value="15"/>')
+				$("#myform").submit();
+			})
+		})
+	
+	
+	</script>
+
+	
+	
+</body>
+</html>

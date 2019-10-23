@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<script>
+		var url = "https://rhostem.github.com";
+		
+		var domain = /https?:\/\/(\w+)\.github.com/;
+		
+		console.log(domain.test(url));
+		console.log(url.search(domain));
+		console.log(url.match(domain));
+		
+	
+	</script>
+
+
+</body>
+</html>

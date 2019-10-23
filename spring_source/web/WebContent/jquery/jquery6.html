@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="name"/>
+		<input type="text" disabled="disabled"/>
+		<select name="" id="kind">
+			<option value="Apple">Apple</option>
+			<option value="Cat">Cat</option>
+			<option value="Dog">Dog</option>
+			<option value="Grape">Grape</option>
+		</select>
+		<button type="button">클릭</button>		 
+	</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$("button").click(function(){
+			//disabled 속성에 해당하는 요소 가져와서 임의의 
+			//값 세팅
+			$("input:disabled").val("수정할 수 없습니다");
+		});
+		
+		//select 값의 변화가 일어나면 선택된 값을 5초 뒤에 보여주기
+		$("#kind").change(function(){
+			setTimeout(function() {
+				var value=$("select option:selected").val();
+				alert(value);
+			}, 5000);
+		});
+	})
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

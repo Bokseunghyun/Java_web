@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id ="tv3" class = "com.spring.di2.SamsungTV">
+		<property name="speaker" ref = "britz"/>
+		<property name="price" value = "300000"/>
+	
+	</bean>
+	
+	<bean id = "apple" class = "com.spring.di2.AppleSpeaker"></bean>
+	<bean id = "britz" class = "com.spring.di2.BritzSpeaker"></bean>
+</beans>
