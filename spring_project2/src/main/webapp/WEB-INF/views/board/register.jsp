@@ -51,34 +51,6 @@
                 	</div>
                 </div>
             </div>      
-            
-<script>
-$(function(){	
-	var formObj=$("form[role='form']"); //글등록 폼 가져오기
-	
-	$("button[type='submit']").click(function(e){
-		e.preventDefault();//Register 폼의 submit 버튼 클릭시 이벤트 막기	
-		
-		//글등록 버튼 클릭시 사용자가 작성한 내용 
-		var str="";
-		
-		//uploadResult ul이 가지고 있는 값 수집하기
-		$(".uploadResult ul li").each(function(i,obj){ //i는 배열의 인덱스 또는 key, obj는 해당 인덱스가 가진 값이나 key가 가진 값
-			var job=$(obj);
-			
-			str+="<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
-			str+="<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
-			str+="<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("fileName")+"'>";
-			str+="<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";
-		});
-		
-		//글 등록폼 보내기
-		formObj.append(str).submit();
-		
-	})
-})
-	
-	
-</script>                  
+
 </body>
 </html>
