@@ -2,25 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.BoardMapper">
 	
+		<!-- insert문이 실행 되기 전에 bno값을+1하고 insert -->
 	<insert id="insert_board">
-		<!-- 게시글 삽입시 필요한 bno(pk)값을 미리 sql을 통해서 처리해두고 특정한 이름으로 결과를 보관 -->
+		<!-- order를 before로 설정해놓았기 때문에 insert문이 실행 되기전에 키를 조회하고 그 값을 bno(keyProperty)에 설정후 insert 실행 -->
 		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
 			select seq_board.nextVal from dual
 		</selectKey>
 		insert into SPRING_BOARD(bno,title,content,writer) values(#{bno},#{title},#{content},#{writer})
 	</insert> 
  
- 	<!-- 전체 게시물 수 -->
+ 	<!-- 전체 게시물 수, 한페이지에 보여질 게시물 수를 정하는 amount 처리를 위해 필요-->
  	<select id="totalCnt" resultType="int">
  		select count(*) from spring_board where <include refid="criteria"/> bno>0
  	</select>
  	
-	<!-- 페이지 나누기 -->
+ 	
+ 	<!-- 페이징 처리 -->
+	<!-- 특정조건을 이용해서 게시글을 검색하고 게시글들을 index값 내림차순으로 정렬 -->
 	<select id="listall" resultType="com.spring.domain.BoardVO">
 		<!-- CDATA를 사용하면 sql문에서 부등호를 사용할수 있게 해줌 -->
+		
+		<!-- /*INDEX_DESC(spring_board pk_spring_board)*/
+		=> 지정된 index를 내림차순으로 나열 pk_spring_board는 index의 이름 -->
+		
 		<![CDATA[
 		select bno,title,content,writer,regdate,updatedate,replyCnt
-		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/
+		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/ 
        		  rownum rn,bno,title,content,writer,regdate,updatedate,replyCnt
        		  from SPRING_BOARD where 
 		]]>
@@ -28,7 +35,9 @@
 		<![CDATA[	
 			 rownum<=(#{pageNum}*#{amount})) where rn> (#{pageNum}-1)*#{amount} order by bno desc
 		]]>
-			
+			<!-- rownum<=(#{pageNum}*#{amount})) where rn> (#{pageNum}-1)*#{amount} order by bno desc
+			=> 특정조건으로 검색한 게시물 수를  계산 후 내림차순으로 정렬
+			 (#{pageNum}-1)*#{amount} => 시작페이지  / (#{pageNum}*#{amount} => 끝페이지 -->
 	</select>
 	
 	<select id="selectlist" resultType="com.spring.domain.BoardVO">
@@ -43,11 +52,14 @@
 		delete from spring_board where bno=#{bno}
 	</delete>
 	
+	<!-- 댓글의 개수 세기 -->
 	<update id="replyCnt">
 		update spring_board set replyCnt=replyCnt+#{amount} where bno=#{bno}
 	</update>
 	
-	<!-- 검색처리를 위한 동적 SQL문 : 재사용을 할 수 있음(include사용해서)-->
+	<!-- 검색처리를 위한 동적 SQL문 : 재사용을 할 수 있음(include사용)-->
+	<!--조건 검색시 자동으로 AND를 붙이고 OR로 시작할 시 OR을 제거
+	 검색 중간에 OR을 넣기 위해 제거 title like ~ OR content like ~ 이런식으로 검색하기 위해 -->
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
 			<foreach item="type" collection="typeArr">

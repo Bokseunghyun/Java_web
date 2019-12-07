@@ -34,7 +34,8 @@ public class ReplyController {
 	public ResponseEntity<String> insert_reply(@RequestBody ReplyVO vo){ // json형태를 ReplyVO타입으로 변경 후 처리
 		log.info("댓글 작성 요청");
 		
-		return service.insert_reply(vo)? new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return service.insert_reply(vo)? new ResponseEntity<String>("success",HttpStatus.OK):
+			new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	@GetMapping("/{rno}")
 	public ResponseEntity<ReplyVO> getReply(@PathVariable("rno")int rno){
@@ -44,7 +45,8 @@ public class ReplyController {
 	
 	//json형태로 결과 처리
 	@GetMapping(value = "/pages/{bno}/{page}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<ReplyPageDTO> getReplyList(@PathVariable("bno")int bno,@PathVariable("page")int page){
+	public ResponseEntity<ReplyPageDTO> getReplyList(@PathVariable("bno")int bno,
+			@PathVariable("page")int page){
 		log.info("댓글 전체 가져오기");
 		
 		Criteria cri = new Criteria(page,10); //page =>현재 페이지 / 10 => 보여줄 게시물 수
@@ -55,14 +57,16 @@ public class ReplyController {
 	public ResponseEntity<String> modify_reply(@PathVariable("rno")int rno,@RequestBody ReplyVO vo){
 		log.info("댓글 수정"+vo);
 		vo.setRno(rno);
-		return service.modify_reply(vo)?new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		return service.modify_reply(vo)?new ResponseEntity<String>("success",HttpStatus.OK):
+			new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@DeleteMapping(value = "/{rno}")
 	public ResponseEntity<String> delete_reply(@PathVariable("rno")int rno){
 		log.info("댓글 삭제");
 	
-		return service.delete_reply(rno)?new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		return service.delete_reply(rno)?new ResponseEntity<String>("success",HttpStatus.OK):
+			new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	}
 
 }

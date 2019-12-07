@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.ChangeVO;
 import com.spring.domain.LoginVO;
-import com.spring.domain.MemberVO;
 import com.spring.domain.Memberinfo;
 import com.spring.service.MemberService;
 
@@ -24,8 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@SessionAttributes("info")// model객체로 생성한(forward) info값을 세션에 담음  
-//세션 삭제 시(logout) forward 값이 남아있기 때문에 session에 담은 뒤 삭제 처리 해야함
+
+// model객체로 생성한(forward) info값을 세션에 담음					         
+// 세션 해제 시(leave,changePw) forward 값이 남아있기 때문에 session에 담아 처리 해야함 
+@SessionAttributes("info")		  
+
 @RequestMapping("/member/*")
 public class MemberController {
 	
@@ -42,7 +43,7 @@ public class MemberController {
 		log.info("로그인 요청"+vo);
 		
 		//로그인한 사람의 정보를 info에 memberinfo타입으로(id,name) 담음
-		Memberinfo info = service.select_member(vo);
+		Memberinfo minfo = service.select_member(vo);
 		
 		//로그인 정보가 없을 시 로그인화면으로 돌려보내기
 		if(vo==null) {
@@ -55,7 +56,7 @@ public class MemberController {
 		}
 		else {
 			//info를 model객체에 담음
-			model.addAttribute("info", info);
+			model.addAttribute("info", minfo);
 			
 			//index로 이동
 			return "redirect:/";
@@ -112,12 +113,7 @@ public class MemberController {
 			rttr.addFlashAttribute("error", "변경비밀번호가 일치하지 않습니다.");
 		}
 		
-		//new_pw와 confirm_pw가 같은지 확인
-		//같다면 비밀번호 수정해주기
-		//비밀번호 변경이 완료되면 세션해제
-		//로그인 페이지로 이동
-		//현재비밀번호가 틀린 경우 => changePw 폼으로 돌려보내고
-		//현재 비밀번호를 확인해 주세요 메세지를 띄워주기
+		
 		return "redirect:changePw";
 	}
 	

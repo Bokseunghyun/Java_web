@@ -18,8 +18,8 @@ writer varchar2(100) not null,
 content varchar2(100) not null,
 regdate timestamp default sysdate,
 updatedate timestamp default sysdate,
-replyCnt int
-);
+replyCnt number default 0 
+)
 
 --댓글 테이블 생성
 create table spring_reply(
@@ -30,7 +30,7 @@ create table spring_reply(
 	replyDate date default sysdate, -- 댓글 작성일
 	updateDate date default sysdate, -- 댓글 수정일
 	constraint fk_reply_board foreign key(bno)
-	references spring_board(bno)
+	references spring_board(bno) on delete cascade
 )
 
 

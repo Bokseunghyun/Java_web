@@ -18,7 +18,7 @@ public class Criteria {
 	}
 	
 	public Criteria() {
-		this(1,10);
+		this(1,10); //한페이지당 10개의 게시물을 기본값으로 지정
 	}
 	
 	public Criteria(int pageNum,int amount) {
