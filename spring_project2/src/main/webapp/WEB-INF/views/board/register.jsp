@@ -51,6 +51,7 @@
                 	</div>
                 </div>
             </div>      
+<<<<<<< HEAD
             
 <script>
 $(function(){	
@@ -78,6 +79,8 @@ $(function(){
 	})
 })
 </script>                  
+=======
+>>>>>>> d4a95cc3bc7ee507281cf7c107409c74e723b9f1
 
 </body>
 </html>
