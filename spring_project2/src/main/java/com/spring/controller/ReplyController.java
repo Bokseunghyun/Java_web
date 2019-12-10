@@ -30,13 +30,17 @@ public class ReplyController {
 	private ReplyService service;
 	
 	//json타입으로 데이터 처리 요청(consumes) text타입으로 최종결과 처리
-	@PostMapping(value="/new",consumes="application/json",produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> insert_reply(@RequestBody ReplyVO vo){ // json형태를 ReplyVO타입으로 변경 후 처리
+	@PostMapping(value="/new",consumes="application/json",
+			produces = MediaType.TEXT_PLAIN_VALUE)
+									// json형태를 ReplyVO타입으로 변경 후 처리
+	public ResponseEntity<String> insert_reply(@RequestBody ReplyVO vo){ 
 		log.info("댓글 작성 요청");
 		
-		return service.insert_reply(vo)? new ResponseEntity<String>("success",HttpStatus.OK):
+		return service.insert_reply(vo)? new ResponseEntity<String>("success",
+				HttpStatus.OK):
 			new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 	@GetMapping("/{rno}")
 	public ResponseEntity<ReplyVO> getReply(@PathVariable("rno")int rno){
 		log.info("댓글 하나 가져오기");
@@ -44,7 +48,8 @@ public class ReplyController {
 	}
 	
 	//json형태로 결과 처리
-	@GetMapping(value = "/pages/{bno}/{page}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/pages/{bno}/{page}",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<ReplyPageDTO> getReplyList(@PathVariable("bno")int bno,
 			@PathVariable("page")int page){
 		log.info("댓글 전체 가져오기");
@@ -54,7 +59,8 @@ public class ReplyController {
 	}
 
 	@PutMapping(value = "/{rno}")
-	public ResponseEntity<String> modify_reply(@PathVariable("rno")int rno,@RequestBody ReplyVO vo){
+	public ResponseEntity<String> modify_reply(@PathVariable("rno")int rno,
+			@RequestBody ReplyVO vo){
 		log.info("댓글 수정"+vo);
 		vo.setRno(rno);
 		return service.modify_reply(vo)?new ResponseEntity<String>("success",HttpStatus.OK):

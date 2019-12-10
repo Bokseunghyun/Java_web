@@ -150,9 +150,11 @@
 	
 	$(function(){
 		
-		//현재 글번호 가져오기
+		//현재 글번호 담기
 		var bno=${vo.bno};	
-		
+		//operForm 담기
+		 var form=$("#operForm");
+		   
 		//현재글의 댓글목록
 		var replyList=$('.chat');
 		//댓글 페이지의 초기값 1페이지
@@ -258,13 +260,6 @@
 			//모달 처리
    			var modal=$(".modal");
 			
-			//modal클래스에 있는 name=reply를 가진 요소 찾기
-   			var modalInputReply = modal.find("input[name='reply']");
-   			//modal클래스에 있는 name=replyer를 가진 요소 찾기
-   			var modalInputReplyer = modal.find("input[name='replyer']");
-   			//modal클래스에 있는 name=replyDate를 가진 요소 찾기
-   			var modalInputReplyDate = modal.find("input[name='replyDate']");
-   			
    			var modalMoBtn=$("#modalModBtn");
    			var modalRemoveBtn=$("#modalRemoveBtn");
    			var modalRegisterBtn=$("#modalRegisterBtn");
@@ -286,84 +281,10 @@
    			modal.modal("show");
    			})
    			
-   			$(modalRegisterBtn).click(function(){
-   				
-   			//댓글 등록
-				var reply={
-   					bno : bno,
-   					reply : modalInputReply.val(),
-   					replyer : modalInputReplyer.val()
-   				};
    			
-   				replyService.add(reply,
-   					function(result){
-   						/* alert("result : " + result); */
-   						//modal 창에 쓴 내용 초기화
-   						modal.find("input").val("");
-   						modal.modal("hide");
-   						//댓글 갱신
-   						showList(-1);
-   				}); 
-   			})
-
-   			
-   			//댓글 수정
-   			$(modalMoBtn).click(function(){
-   				
-   				var reply={rno:modal.data("rno"),reply:modalInputReply.val()};
-   				
-				replyService.update(reply,function(result){
-					//console.log(result);
-					modal.modal("hide");
-					showList(pageNum);
-				}); 
-   			
-   			})
-   			
-   			
-			//댓글 삭제
-			$(modalRemoveBtn).click(function(){
-				
-				var rno = modal.data("rno");
-			 replyService.remove(rno,function(result){
-				modal.modal("hide");				
-				showList(pageNum);
-				},function(err){
-				alert('에러발생');
-				}) 
-			})
-			
-				
-			//이벤트 위임 방식:현재 존재하는 요소에 이벤트를 걸고 나중에 변경하는 방식
-			
-			$(".chat").on("click","li",function(){ //클릭했을 때 li의 내용을 가져옴
-				
-				var rno=$(this).data("rno"); //data-rno값을 가져옴
-				
-			//댓글 하나 정보보기
-			replyService.get(rno,function(data){
-				modalInputReply.val(data.reply);
-				modalInputReplyer.val(data.replyer);
-				modalInputReplyDate.val(replyService.displayTime(data.replyDate));
-				modalInputReplyDate.attr("readonly","true");
-				modal.data("rno",data.rno);
-				
-				modal.find("button[id!='modalCloseBtn']").hide();
-				modalMoBtn.show();
-				modalRemoveBtn.show();
-				modal.modal("show");
-			})
-			    
-			})
-})
-	
-	 $(function(){
-	   var form=$("#operForm");
-	   
-	   
-	   $("#listBtn").click(function(){
-		   //operForm 보내기(페이지 정보가 들어있기 때문에)
-			form.find("input[name='bno']").remove();
+   			$("#listBtn").click(function(){
+		   //operForm 보내기(페이지 정보가 들어있기 때문에 bno를 지우고 리스트로 이동)
+		   form.find("input[name='bno']").remove();
 		   form.attr("action","/board/list");
 		   form.submit();
 	   });
@@ -371,10 +292,91 @@
 	   $(".btn-default").click(function(){
 		   form.submit();
 	   });
-   })
+	   
+	   
+//댓글 처리 부분 시작
+			
+			//modal클래스에 있는 name=reply를 가진 요소 찾기
+   			var modalInputReply = modal.find("input[name='reply']");
+   			//modal클래스에 있는 name=replyer를 가진 요소 찾기
+   			var modalInputReplyer = modal.find("input[name='replyer']");
+   			//modal클래스에 있는 name=replyDate를 가진 요소 찾기
+   			var modalInputReplyDate = modal.find("input[name='replyDate']");
+	
+   		$(modalRegisterBtn).click(function(){
+		
+			//댓글 등록
+			var reply={
+				bno : bno,
+				reply : modalInputReply.val(),
+				replyer : modalInputReplyer.val()
+			};
+		
+			replyService.add(reply,
+				function(result){
+					//modal 창에 쓴 내용 초기화
+					modal.find("input").val("");
+					modal.modal("hide");
+					//댓글 갱신
+					showList(-1);
+			}); 
+		})
+
+		
+		//댓글 수정
+		$(modalMoBtn).click(function(){
+			
+			var reply={rno:modal.data("rno"),reply:modalInputReply.val()};
+			
+		replyService.update(reply,function(result){
+			console.log(result);
+			modal.modal("hide");
+			showList(pageNum);
+		}); 
+		
+		})
+		
+		
+	//댓글 삭제
+	$(modalRemoveBtn).click(function(){
+		
+		var rno = modal.data("rno");
+	 replyService.remove(rno,function(result){
+		modal.modal("hide");				
+		showList(pageNum);
+		},function(err){
+		alert('에러발생');
+		}) 
+	})
+	
+		
+	//이벤트 위임 방식:현재 존재하는 요소에 이벤트를 걸고 나중에 변경하는 방식
+	
+	$(".chat").on("click","li",function(){ //클릭했을 때 li의 내용을 가져옴
+		
+		var rno=$(this).data("rno"); //data-rno값을 가져옴
+		
+	//댓글 하나 정보보기
+	replyService.get(rno,function(data){
+		modalInputReply.val(data.reply);
+		modalInputReplyer.val(data.replyer);
+		modalInputReplyDate.val(replyService.displayTime(data.replyDate));
+		modalInputReplyDate.attr("readonly","true");
+		modal.data("rno",data.rno);
+		
+		modal.find("button[id!='modalCloseBtn']").hide();
+		modalMoBtn.show();
+		modalRemoveBtn.show();
+		modal.modal("show");
+	})
+	    
+	})
+   			
+})
+
+
 </script>	
-	
-	
+
 	     
 </body>
 </html>

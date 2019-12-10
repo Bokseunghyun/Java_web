@@ -59,7 +59,7 @@ $(function(){
 	$("button[type='submit']").click(function(e){
 		e.preventDefault();//Register 폼의 submit 버튼 클릭시 이벤트 막기	
 		
-		//글등록 버튼 클릭시 사용자가 작성한 내용 + 첨부파일 정보 같이 보내기
+		//글등록 버튼 클릭시 사용자가 작성한 내용
 		var str="";
 		
 		//uploadResult ul이 가지고 있는 값 수집하기
@@ -77,8 +77,7 @@ $(function(){
 		
 	})
 })
-	
-	
 </script>                  
+
 </body>
 </html>

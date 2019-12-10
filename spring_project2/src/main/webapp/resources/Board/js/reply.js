@@ -10,9 +10,9 @@ var replyService =(function(){
 		$.ajax({
 			type:'post',
 			url:'/replies/new',
-			data:JSON.stringify(reply), //JSON객체를 String 객체로 변환
+			data:JSON.stringify(reply), //JSON 객체를 String 객체로 변환
 			contentType:'application/json;charset=utf-8',
-			success:function(result){
+			success:function(result){ //Controller에서 넘어오는 return값(성공시 succcess메세지)
 				if(callback){
 					callback(result);
 				}
