@@ -1,8 +1,12 @@
 package com.spring.service;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.ChangeVO;
 import com.spring.domain.LoginVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.Memberinfo;
@@ -33,7 +37,7 @@ public class MemberServiceimpl implements MemberService{
 
 	@Override
 	public int changePw(String userid, String new_pw) {
-
+		
 		return mapper.changePw(userid, new_pw);
 	}
 
@@ -41,6 +45,12 @@ public class MemberServiceimpl implements MemberService{
 	public boolean checkId(String userid) {
 
 		return mapper.select_id(userid)==null?true:false;
+	}
+
+	@Override
+	public MemberVO loginBcrypt(LoginVO vo) {
+
+		return mapper.loginBcrypt(vo);
 	}
 
 }

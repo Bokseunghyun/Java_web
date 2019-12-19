@@ -14,13 +14,18 @@
  		select * from spring_member where userid=#{userid}
  	</select>
  	
- 	<select id="select_info" resultType="com.spring.domain.Memberinfo">
- 		select userid,username from spring_member where userid=#{userid} and userpw=#{current_pw}
+ 	<select id="select_info" resultType="com.spring.domain.LoginVO">
+ 		select userid,userpw from spring_member where userid=#{userid} and userpw=#{current_pw}
  	</select>
  	
  	<update id="changePw">
  		update spring_member set userpw=#{new_pw} where userid=#{userid}
  	</update>
+ 	
+ 	<select id ="loginBcrypt" resultType="com.spring.domain.MemberVO">
+ 		select userid,userpw from spring_member where userid=#{userid}
+ 	
+ 	</select>
  	
  	
  </mapper>

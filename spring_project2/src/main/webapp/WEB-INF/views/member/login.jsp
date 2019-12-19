@@ -9,8 +9,9 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="resources/css/signin.css" ref="stylesheet">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+	
     <script>
     $(function(){
     	var error='${error}';
@@ -23,9 +24,10 @@
   </head>
   <body class="text-center">
     <form class="form-signin" method="post">      
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>     
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> 
+      
       <label for="inputId" class="sr-only">아이디</label>
-      <input type="text" id="inputId" name="userid" class="form-control" placeholder="아이디" required autofocus>
+      <input type="text" id="inputId" name="userid" class="form-control" placeholder="아이디"  required autofocus>
       <label for="inputPassword" class="sr-only">비밀번호</label>
       <input type="password" id="inputPassword" name="current_pw" class="form-control" placeholder="비밀번호" required>
       <div class="checkbox mb-3">
@@ -34,8 +36,9 @@
         </label>
       </div>
       
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" id="loginFn">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
   </body>
+   
 </html>

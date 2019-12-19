@@ -49,8 +49,14 @@
 </div>
     <script>
     function ChangeOk(){
+    	if(new_pw==confirm_pw){
     	alert("비밀번호 변경 완료");
     	location.href="/login";
+    	}
+    	else{
+    		alert("비밀번호가 일치하지 않습니다");
+    		
+    	}
     }
     </script>
 </body>

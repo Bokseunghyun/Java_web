@@ -3,6 +3,7 @@ package com.spring.controller;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,9 @@ public class RegistController {
 
 	@Inject
 	private MemberService service;
+	
+	@Inject
+	private BCryptPasswordEncoder pwEncoder;
 	
 	@GetMapping("/index")
 	public void index() {
@@ -61,8 +65,15 @@ public class RegistController {
 		if(!vo.userpwequalconfirm_pw()) {
 			return"/step2";
 		}
-		service.insert_member(vo);
+		else {
+			//비밀번호 암호화
+			String inputPw = vo.getUserpw();
+			String pw = pwEncoder.encode(inputPw);			
+			vo.setUserpw(pw);
+		
+			service.insert_member(vo);
 		return "/index";
+		}
 	}
 	
 	@PostMapping("/checkId")

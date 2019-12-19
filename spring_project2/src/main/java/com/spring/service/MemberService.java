@@ -15,4 +15,6 @@ public interface MemberService {
 	public Memberinfo select_member(LoginVO vo);
 	//비밀번호 변경
 	public int changePw(String userid, String new_pw);
+	//로그인 암호화
+	public MemberVO loginBcrypt(LoginVO vo);
 }

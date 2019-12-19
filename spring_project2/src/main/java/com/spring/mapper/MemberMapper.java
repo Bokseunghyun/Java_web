@@ -22,4 +22,7 @@ public interface MemberMapper {
 
 	//아이디 중복 검사
 	public MemberVO select_id(String userid);
+	
+	//로그인 암호화
+	public MemberVO loginBcrypt(LoginVO vo);
 }

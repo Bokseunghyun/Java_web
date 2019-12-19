@@ -1,6 +1,6 @@
 create table spring_member(
 userid varchar2(15) primary key,
-userpw varchar2(20) not null,
+userpw varchar2(100) not null,
 username nvarchar2(10) not null,
 gender varchar2(10) not null,
 email varchar2(50) not null);
@@ -33,7 +33,17 @@ create table spring_reply(
 	references spring_board(bno) on delete cascade
 )
 
-
+-- 파일 첨부 테이블
+create table spring_attach(
+	uuid varchar2(100) not null ,
+	uploadPath varchar2(200) not null,
+	fileName varchar2(100) not null,
+	fileType char(1) default 'I',
+	bno number(10,0),
+	constraint pk_attach primary key(uuid),
+	constraint fk_board_attach foreign key(bno)
+	references spring_board(bno) on delete cascade
+);
 drop table spring_reply;
 
 create sequence seq_reply;

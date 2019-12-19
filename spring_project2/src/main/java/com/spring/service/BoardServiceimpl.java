@@ -9,16 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
+import com.spring.domain.ReplyPageDTO;
 import com.spring.mapper.BoardMapper;
-
 import lombok.Setter;
 
 @Service("boardService")
 public class BoardServiceimpl implements BoardService{
 	
 	@Inject
+	@Setter
 	private BoardMapper mapper; 
 	
+	
+	@Transactional
 	@Override
 	public void inesrt_board(BoardVO vo) {
 		//게시글 작성
@@ -33,7 +36,6 @@ public class BoardServiceimpl implements BoardService{
 
 	@Override
 	public boolean delete_board(int bno) {
-
 		return mapper.delete_board(bno)==1?true:false;
 	}
 
