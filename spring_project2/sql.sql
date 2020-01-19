@@ -53,6 +53,8 @@ create index idx_reply on spring_reply(bno desc,rno asc);
 
 --댓글 수 처리를 위한 컬럼 추가
 alter table spring_board add(replyCnt number default 0);
+alter table spring_member add(new_pw varchar2(100));
+alter table spring_member drop column new_pw;
 
 update SPRING_BOARD set replyCnt=(select count(rno) from SPRING_REPLY where SPRING_REPLY.bno=spring_board.bno);
 

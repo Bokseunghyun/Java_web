@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import com.spring.domain.ChangeVO;
 import com.spring.domain.LoginVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.Memberinfo;
@@ -14,7 +15,8 @@ public interface MemberService {
 	//로그인 정보
 	public Memberinfo select_member(LoginVO vo);
 	//비밀번호 변경
-	public int changePw(String userid, String new_pw);
+	public int changePw(ChangeVO vo);
+	//public ChangeVO changePw(LoginVO vo);
 	//로그인 암호화
 	public MemberVO loginBcrypt(LoginVO vo);
 }

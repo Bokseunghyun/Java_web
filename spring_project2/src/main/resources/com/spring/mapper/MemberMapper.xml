@@ -18,7 +18,7 @@
  		select userid,userpw from spring_member where userid=#{userid} and userpw=#{current_pw}
  	</select>
  	
- 	<update id="changePw">
+ 	<update id="changePw1" parameterType="String">
  		update spring_member set userpw=#{new_pw} where userid=#{userid}
  	</update>
  	

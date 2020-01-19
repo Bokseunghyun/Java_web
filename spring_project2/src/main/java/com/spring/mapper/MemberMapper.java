@@ -2,6 +2,7 @@ package com.spring.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.domain.ChangeVO;
 import com.spring.domain.LoginVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.Memberinfo;
@@ -18,11 +19,14 @@ public interface MemberMapper {
 	public Memberinfo select_info(LoginVO vo);
 
 	//비밀번호 변경
-	public int changePw(@Param("userid")String userid, @Param("new_pw")String new_pw);
+	//public String changePw1(@Param("userid")String userid, @Param("new_pw")String new_pw);
+	public int changePw1(ChangeVO vo);
+	//public ChangeVO changePw(LoginVO vo);
 
 	//아이디 중복 검사
 	public MemberVO select_id(String userid);
 	
 	//로그인 암호화
 	public MemberVO loginBcrypt(LoginVO vo);
+
 }

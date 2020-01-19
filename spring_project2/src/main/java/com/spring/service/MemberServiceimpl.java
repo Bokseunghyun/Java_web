@@ -36,9 +36,8 @@ public class MemberServiceimpl implements MemberService{
 	}
 
 	@Override
-	public int changePw(String userid, String new_pw) {
-		
-		return mapper.changePw(userid, new_pw);
+	public int changePw(ChangeVO vo) {
+		return mapper.changePw1(vo);
 	}
 
 	@Override
